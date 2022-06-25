@@ -40,6 +40,8 @@ else:
 # API.Collect(soup, cur2, row[1])
 # conn2.commit()
 
+conn2.commit()
+conn2.close()
 
 
 while True:

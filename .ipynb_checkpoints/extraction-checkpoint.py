@@ -75,13 +75,13 @@ def extract_profile(soup):
     reads = matches[1].text
     citation = matches[2].text
     try:
-        # try:
-        #     var = soup.find_all('button', class_='nova-legacy-c-nav__item js-lite-click')[2].text.split()
-        #     if var[0] == 'Projects':
-        #         projects = var[1]
-        # except:
-        #     projects = 0
-        # # projects = soup.select_one('#lite-page > main > section.lite-page__header-navigation.lite-page__header-navigation--with-ad > div > div > div > nav > div > div.nova-legacy-c-nav__items > button:nth-child(4) > div > div > a > span').text
+        try:
+            var = soup.find_all('button', class_='nova-legacy-c-nav__item js-lite-click')[2].text.split()
+            if var[0] == 'Projects':
+                projects = var[1]
+        except:
+            projects = 0
+        # projects = soup.select_one('#lite-page > main > section.lite-page__header-navigation.lite-page__header-navigation--with-ad > div > div > div > nav > div > div.nova-legacy-c-nav__items > button:nth-child(4) > div > div > a > span').text
         degree = soup.find('div', class_='nova-legacy-e-text nova-legacy-e-text--size-m nova-legacy-e-text--family-sans-serif nova-legacy-e-text--spacing-none nova-legacy-e-text--color-grey-600 title').text
         department = soup.find('a', class_='nova-legacy-e-link nova-legacy-e-link--color-inherit nova-legacy-e-link--theme-bare').text
         # department = soup.select_one('#lite-page > main > aside > div.nova-legacy-o-stack.nova-legacy-o-stack--gutter-m.nova-legacy-o-stack--spacing-none.nova-legacy-o-stack--no-gutter-outside > div:nth-child(1) > div > div.nova-legacy-c-card__body.nova-legacy-c-card__body--spacing-inherit > div > div > div > div > div > div:nth-child(3) > div > div > ul > li:nth-child(1) > span').text
@@ -94,7 +94,7 @@ def extract_profile(soup):
         department = 'Null'
         
     most_p = 'Null'
-    return (user, country , degree, email, citation, reads, publicaton, most_p, aff, department)
+    return (user, country , degree, email, citation, reads, publicaton, projects, most_p, aff, department)
 
 def extract_skills(soup):
     matches = soup.find_all('a', class_='nova-legacy-e-badge nova-legacy-e-badge--color-grey nova-legacy-e-badge--display-inline nova-legacy-e-badge--luminosity-medium nova-legacy-e-badge--size-l nova-legacy-e-badge--theme-ghost nova-legacy-e-badge--radius-full profile-about__badge')

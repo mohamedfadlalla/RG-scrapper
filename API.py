@@ -10,22 +10,23 @@ def Collect(soup, cur, url):
 
 	profile_id = db.ProfileID(cur, user)
 
-	##insert skills
+	# ##insert skills
 	skills = ex.extract_skills(soup)
 	db.InsertSkill(skills,cur, profile_id)
 
-	#insert affilations
+	# #insert affilations
 	aff_l = ex.extract_aff(soup)
 	db.InsertAffilations(aff_l,cur, profile_id)
 
-	##insert publication
+	# ##insert publication
 	pub_l =ex.extract_publication(soup)
 	db.InsertPublications(pub_l, cur, profile_id)
 
-	##insert Projects
-	proj_l =ex.extract_projects(soup)
-	db.InsertProjects(proj_l, cur, profile_id)
+	# ##insert Projects
+	# proj_l =ex.extract_projects(soup)
+	# db.InsertProjects(proj_l, cur, profile_id)
 
-	##Insert network
+	# ##Insert network
 	network = ex.extract_network(soup)
 	db.InsertNetwork(network, cur, profile_id)
+

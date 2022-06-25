@@ -3,8 +3,8 @@
 def InsertProfile(profile, cur):
 
 	cur.execute('''INSERT OR REPLACE INTO Profile
-	  (name, country, degree, email, citation, reads, publications, projects, most_p, aff, department, url)
-	  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',profile)
+	  (name, country, degree, email, citation, reads, publications, most_p, aff, department, url)
+	  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',profile)
 
 def ProfileID(cur, user):
 	cur.execute('SELECT id FROM Profile WHERE name = ?', (user, ))

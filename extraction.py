@@ -66,7 +66,7 @@ def extract_aff(soup):
         return affs_l
 
 def extract_profile(soup):
-    user = soup.find('h1', class_='nova-legacy-e-text nova-legacy-e-text--size-m nova-legacy-e-text--family-sans-serif nova-legacy-e-text--spacing-none nova-legacy-e-text--color-inherit').div.text
+    user = soup.find('h1', class_='nova-legacy-e-text nova-legacy-e-text--size-m nova-legacy-e-text--family-sans-serif nova-legacy-e-text--spacing-none nova-legacy-e-text--color-inherit').text
     # user = soup.select_one('#lite-page > main > section.lite-page__content-header > div > div.content-grid__full > div > div > div > div:nth-child(2) > div > div.nova-legacy-l-flex__item.nova-legacy-l-flex__item--grow > div > div:nth-child(2) > h1 > div > div:nth-child(1) > div').text
     country = 'Null'
     email = 'Null'

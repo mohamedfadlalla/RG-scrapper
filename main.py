@@ -53,11 +53,10 @@ while True:
 		API.Collect(soup, cur2, row[1])
 		conn2.commit()
 
-	except ZeroDivisionError:
+	except:
 		try: 
 			print(row[1])
 			InsertError(cur2, url)
-			break
 		except TypeError:
 			break
 

@@ -11,7 +11,7 @@ def SetupSelenium_Linux():
 	# options.add_experimental_option("prefs", prefs)
 	options.add_argument('--ignore-certificate-errors')
 	options.add_argument('--ignore-ssl-errors')
-	browser = webdriver.Firefox(options=options, executable_path='/usr/bin/geckodriver')
+	browser = webdriver.Firefox(options=options, executable_path='/content/geckodriver')
 	return browser
 
 def SetupSelenium_Win():

@@ -113,3 +113,10 @@ def extract_network(soup):
             if i['href'].startswith('https://www.researchgate.net/profile'):
                 network.append(i['href'])
         return list(set(network))
+
+    
+def extract_doi(soup):
+    #it takes in the soup of the page of the pubication in RG
+    doi = soup.find('div',class_='research-detail-header-section__metadata')
+    doi = [i.text for i in doi][1].split(':')[1]
+    return doi

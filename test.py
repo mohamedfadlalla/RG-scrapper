@@ -16,58 +16,14 @@ import API
 
 
 DB_NAME = 'RG-DB.sqlite'
-RESUME = False
 
-if RESUME == False:
-	### kickstart crowlar
-	browser = selenium_setup.SetupBrowser()
-	conn2, cur2 = db.Setup(DB_NAME)
+browser = selenium_setup.SetupBrowser()
+# conn2, cur2 = db.Setup(DB_NAME)
 
-	url = r'https://www.researchgate.net/profile/Mohamed-Elbadawi/research'
-	browser.get(url)
-	soup = bs(browser.page_source, features="lxml")
-	API.Collect(soup, cur2, url)
-else:
-	conn2, cur2 =db.ConnectDB(DB_NAME)
-	browser = selenium_setup.SetupBrowser()
+url = r'https://www.researchgate.net/publication/353246555_Anti-hepatitis_B_activities_of_Myanmar_medicinal_plants_a_narrative_review_of_current_evidence'
+browser.get(url)
+soup = bs(browser.page_source, features="lxml")
+
+API.Collect_Email(soup)
 
 
-# error_l=[]
-# conn = sqlite3.connect('RG-DB_colab.sqlite')
-# cur = conn.cursor()
-# cur.execute('SELECT id,url,html FROM Pages WHERE html is NOT Null  ORDER BY RANDOM()')
-# row = cur.fetchone()
-# soup = bs(row[2])
-# API.Collect(soup, cur2, row[1])
-# conn2.commit()
-
-
-start = datetime.now()
-
-for _ in range(30):
-	try:
-		cur2.execute('SELECT id, url FROM Globe WHERE status is 1  ORDER BY RANDOM() LIMIT 1')
-		row = cur2.fetchone()
-		url = row[1]
-		print(url)
-		browser.get(url)
-		soup = bs(browser.page_source, features="lxml")
-		API.Collect(soup, cur2, row[1])
-		conn2.commit()
-
-	except:
-		try: 
-			print(row[1])
-			InsertError(cur2, url)
-		except TypeError:
-			break
-
-t30 = datetime.now() - start
-t = t30/30
-print("for loop time: ", t30)
-print("estemated time per one profile: ", t)
-
-
-print('exited while loop')
-conn2.commit()
-conn2.close()

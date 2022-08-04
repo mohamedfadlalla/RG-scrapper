@@ -1,5 +1,6 @@
 import db.insert as db 
 import extraction as ex
+import util
 
 def Collect(soup, cur, url):
 
@@ -19,7 +20,7 @@ def Collect(soup, cur, url):
 	db.InsertAffilations(aff_l,cur, profile_id)
 
 	# ##insert publication
-	pub_l =ex.extract_publication(soup)
+	pub_l = ex.extract_publication(soup)
 	db.InsertPublications(pub_l, cur, profile_id)
 
 	# ##insert Projects
@@ -29,4 +30,14 @@ def Collect(soup, cur, url):
 	# ##Insert network
 	network = ex.extract_network(soup)
 	db.InsertNetwork(network, cur, profile_id)
+
+def Collect_Email(soup):
+  try: 
+    util.download_paper(doi, name)
+    util.get_email(name)
+  except:  
+    doi = ex.extract_doi(soup)
+    name =  'file' + '.pdf'
+    util.download_paper(doi, name)
+    util.get_email(name)
 

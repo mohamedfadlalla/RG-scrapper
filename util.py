@@ -42,3 +42,7 @@ def get_email(file):
     match = re.findall(pattren,text)
     print(match)
     return match
+
+def ishundred(num):
+  if num%100 == 0:
+    return True

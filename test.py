@@ -16,21 +16,18 @@ import db.setup as db
 from db.insert import InsertError
 import API 
 
-df = pd.DataFrame()
 
-
-row = {}
 filter = {'type': 'journal-article'}
 queries = {#'query.title': 'Molecular Docking', 
            'query.affiliation': 'University of Khartoum'}
-for p in iterate_publications_as_json(max_results=10, filter=filter, queries=queries):
 
-  # print(p)
-  row['doi'] = p['DOI']
-  row['author'] = p['author']
-  row['title'] = p['title']
-  ## OPTIMAIZATION NEEDED
-  df = df.append(row, ignore_index=True)
+Data =[]
+
+for p in iterate_publications_as_json(max_results=100, filter=filter, queries=queries):
+  Data.append([p['DOI'], p['author'][0], p['title'][0]])
+
+df = pd.DataFrame(Data, columns=['DOI', 'Authors', 'Title'])
+
 
 dois = df.doi.tolist()
 

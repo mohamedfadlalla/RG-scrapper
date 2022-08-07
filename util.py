@@ -19,7 +19,7 @@ def download_paper(doi, name):
     soup = bs(response.content)
     url =  soup.find('div', id= 'buttons').button['onclick'].split("'")[1].replace('//','')
     print('before editing', url)
-    if url.startswith('zero.sci-hub.se'):
+    if url.startswith('zero.sci-hub.se') or url.startswith('twin.sci-hub.se'):
       url = 'http://' + url
       response = requests.get(url)
       open(name, "wb").write(response.content)

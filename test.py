@@ -3,6 +3,8 @@
 ##third party
 import selenium_setup
 from bs4 import BeautifulSoup as bs
+from crossref_commons.iteration import iterate_publications_as_json
+import pandas as pd
 
 ##built in
 import sqlite3
@@ -14,16 +16,26 @@ import db.setup as db
 from db.insert import InsertError
 import API 
 
+df = pd.DataFrame()
 
-DB_NAME = 'RG-DB.sqlite'
 
-browser = selenium_setup.SetupBrowser()
-# conn2, cur2 = db.Setup(DB_NAME)
+row = {}
+filter = {'type': 'journal-article'}
+queries = {'query.title': 'Molecular Docking', 
+           'query.affiliation': 'University of Khartoum'}
+for p in iterate_publications_as_json(max_results=1, filter=filter, queries=queries):
 
-url = r'https://www.researchgate.net/publication/353246555_Anti-hepatitis_B_activities_of_Myanmar_medicinal_plants_a_narrative_review_of_current_evidence'
-browser.get(url)
-soup = bs(browser.page_source, features="lxml")
+  # print(p)
+  row['doi'] = p['DOI']
+  row['author'] = p['author']
+  row['title'] = p['title']
+  ## OPTIMAIZATION NEEDED
+  df = df.append(row, ignore_index=True)
 
-API.Collect_Email(soup)
+dois = df.doi.tolist()
 
+emails = API.Collect_Email(dois)
+
+df['emails'] = emails
+df.to_csv('scrapped_emails.csv')
 

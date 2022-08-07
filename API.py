@@ -31,13 +31,17 @@ def Collect(soup, cur, url):
 	network = ex.extract_network(soup)
 	db.InsertNetwork(network, cur, profile_id)
 
-def Collect_Email(soup):
-  try: 
-    util.download_paper(doi, name)
-    util.get_email(name)
-  except:  
-    doi = ex.extract_doi(soup)
-    name =  'file' + '.pdf'
-    util.download_paper(doi, name)
-    util.get_email(name)
+def Collect_Email(dois):
+  emails = []
+  for doi, name in zip(dois, range(len(dois))):
+    name = str(name) + '.pdf'
+    try: 
+      util.download_paper(doi, name)
+      try:
+        emails.append(util.get_email(name))
+      except:
+        emails.append('pursing error')
+    except:  
+      emails.append('not on sci-hub')
+  return emails
 

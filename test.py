@@ -21,9 +21,9 @@ df = pd.DataFrame()
 
 row = {}
 filter = {'type': 'journal-article'}
-queries = {'query.title': 'Molecular Docking', 
+queries = {#'query.title': 'Molecular Docking', 
            'query.affiliation': 'University of Khartoum'}
-for p in iterate_publications_as_json(max_results=1, filter=filter, queries=queries):
+for p in iterate_publications_as_json(max_results=10, filter=filter, queries=queries):
 
   # print(p)
   row['doi'] = p['DOI']

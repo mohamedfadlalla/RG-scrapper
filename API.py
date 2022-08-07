@@ -31,17 +31,22 @@ def Collect(soup, cur, url):
 	network = ex.extract_network(soup)
 	db.InsertNetwork(network, cur, profile_id)
 
-def Collect_Email(dois):
-  emails = []
-  for doi, name in zip(dois, range(len(dois))):
-    name = str(name) + '.pdf'
+def Collect_Email(df):
+
+  for index, row in df.iterrows():
+
+    #save results every 100 entry
+    if util.ishundred(index):
+      df.to_csv('itration_save.csv')
+
+    name = str(index) + '.pdf'
     try: 
-      util.download_paper(doi, name)
+      util.download_paper(row['DOI'], name)
       try:
-        emails.append(util.get_email(name))
+        df.loc[index, 'Email'] = append(util.get_email(name))
       except:
-        emails.append('pursing error')
+        df.loc[index, 'Email'] = 'pursing error'
     except:  
-      emails.append('not on sci-hub')
-  return emails
+      df.loc[index, 'Email'] = 'not on sci-hub'
+
 

@@ -34,7 +34,7 @@ def download_paper(doi, name):
     
 def get_email(file):
     #extract emails from pdfs
-    pattren = '\b[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,6}\b'
+    pattren = '[\w+\-.]+@[a-z\d\-.]+\.[a-z]+'
     reader = PdfFileReader(file)
     text = ""
     for page in reader.pages:

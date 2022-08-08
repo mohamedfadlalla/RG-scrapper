@@ -34,16 +34,15 @@ def Collect(soup, cur, url):
 def Collect_Email(df):
 
   for index, row in df.iterrows():
-
     #save results every 100 entry
     if util.ishundred(index):
-      df.to_csv('itration_save.csv')
+      df.to_csv('itration_save.csv', index=False)
 
     name = str(index) + '.pdf'
     try: 
       util.download_paper(row['DOI'], name)
       try:
-        df.loc[index, 'Email'] = append(util.get_email(name))
+        df.loc[index, 'Email'] = util.get_email(name)
       except:
         df.loc[index, 'Email'] = 'pursing error'
     except:  
